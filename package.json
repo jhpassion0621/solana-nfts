@@ -1,5 +1,5 @@
 {
-  "name": "@zoar/sol-libs",
+  "name": "zoar-sol-libs",
   "version": "0.1.0",
   "description": "Get nfts of solana",
   "main": "index.js",
@@ -15,7 +15,7 @@
     "nfts",
     "web3"
   ],
-  "author": "JH Lee",
+  "author": "jh.lee",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.0",
