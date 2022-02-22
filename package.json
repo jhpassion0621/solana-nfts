@@ -1,0 +1,25 @@
+{
+  "name": "@zoar/solana-nfts",
+  "version": "0.1.0",
+  "description": "Get nfts of solana",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhpassion0621/solana-nfts.git"
+  },
+  "keywords": [
+    "solana",
+    "nfts",
+    "web3"
+  ],
+  "author": "JH Lee",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "borsh": "^0.7.0",
+    "lodash.chunk": "^4.2.0"
+  }
+}
