@@ -7,3 +7,7 @@ export const SOLSCAN_API = axios.create({
 export const COINGECKO_API = axios.create({
   baseURL: "https://api.coingecko.com/api/v3",
 });
+
+export const RAYDIUM_API = axios.create({
+  baseURL: "https://api.raydium.io/v2",
+});

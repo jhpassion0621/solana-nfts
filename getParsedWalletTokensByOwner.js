@@ -1,6 +1,6 @@
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { createConnectionConfig, isValidSolanaAddress } from ".";
-import { COINGECKO_API, SOLSCAN_API } from "./config/solscan";
+import { COINGECKO_API, RAYDIUM_API, SOLSCAN_API } from "./config/solscan";
 
 export const getParsedWalletTokensByOwner = async (
   address,
@@ -24,6 +24,34 @@ export const getParsedWalletTokensByOwner = async (
     const amount = t.tokenAmount?.uiAmount;
     const decimals = t.tokenAmount?.decimals;
     return decimals > 0 && amount > 0;
+  });
+
+  // get prices table
+  const { data: coingeckoPrices } = await COINGECKO_API.get(
+    "simple/token_price/solana",
+    {
+      params: {
+        vs_currencies: "usd",
+        contract_addresses: walletTokens
+          .map((token) => token.tokenAddress)
+          .join(","),
+      },
+    }
+  );
+  const { data: rydiumPrices } = await RAYDIUM_API.get("main/price");
+  walletTokens.forEach(async (token) => {
+    if (coingeckoPrices[token.tokenAddress]) {
+      token.priceUsdt = coingeckoPrices[token.tokenAddress].usd;
+    } else if (rydiumPrices[token.tokenAddress]) {
+      token.priceUsdt = rydiumPrices[token.tokenAddress];
+    } else {
+      const { data: price } = await SOLSCAN_API.get(
+        `market/token/${token.tokenAddress}`
+      );
+      if (price.priceUsdt) {
+        token.priceUsdt = price.priceUsdt;
+      }
+    }
   });
 
   return [accountToken, ...walletTokens];
