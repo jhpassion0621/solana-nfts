@@ -26,6 +26,10 @@ export const getParsedWalletTokensByOwner = async (
     return decimals > 0 && amount > 0;
   });
 
+  if (walletTokens.length === 0) {
+    return [accountToken];
+  }
+
   // get prices table
   const { data: coingeckoPrices } = await COINGECKO_API.get(
     "simple/token_price/solana",
@@ -39,7 +43,7 @@ export const getParsedWalletTokensByOwner = async (
     }
   );
   const { data: rydiumPrices } = await RAYDIUM_API.get("main/price");
-  walletTokens.forEach(async (token) => {
+  for (const token of walletTokens) {
     if (coingeckoPrices[token.tokenAddress]) {
       token.priceUsdt = coingeckoPrices[token.tokenAddress].usd;
     } else if (rydiumPrices[token.tokenAddress]) {
@@ -52,7 +56,7 @@ export const getParsedWalletTokensByOwner = async (
         token.priceUsdt = price.priceUsdt;
       }
     }
-  });
+  }
 
   return [accountToken, ...walletTokens];
 };

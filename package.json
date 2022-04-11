@@ -1,6 +1,6 @@
 {
   "name": "zoar-sol-libs",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Provide some libraries of solana to get nfts and tokens",
   "main": "index.js",
   "scripts": {
