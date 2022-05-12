@@ -2,7 +2,7 @@ export {
   getParsedNFTsByOwner,
   getParsedNFTAccountsByOwner,
 } from "./getParsedNFTsByOwner";
-export { getParsedWalletTokensByOwner } from "./getParsedWalletTokensByOwner";
+export { getOrCreateAssociatedTokenAccount } from "./getOrCreateAssociatedTokenAccount";
 export {
   isValidSolanaAddress,
   createConnectionConfig,

@@ -5,9 +5,9 @@ import {
   getSolanaMetadataAddress,
   isValidSolanaAddress,
 } from ".";
-import { TOKEN_PROGRAM_ID } from "./config/programs";
 import chunks from "lodash.chunk";
 import axios from "axios";
+import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 
 export const getParsedNFTAccountsByOwner = async (
   address,
