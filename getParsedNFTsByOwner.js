@@ -67,7 +67,9 @@ export const getParsedNFTAccountsByOwner = async (
 
   // Decode data from Buffer to readable objects
   const accountsDecodedMeta = await Promise.allSettled(
-    accountsRawMeta.map((accountInfo) => decodeTokenMetadata(accountInfo?.data))
+    accountsRawMeta
+      .filter((accountInfo) => accountInfo !== null)
+      .map((accountInfo) => decodeTokenMetadata(accountInfo?.data))
   );
 
   const accountsFiltered = accountsDecodedMeta

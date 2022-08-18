@@ -73,16 +73,20 @@ export async function getOrCreateAssociatedTokenAccount(
           )
         );
 
-        const blockHash = await connection.getRecentBlockhash();
+        const blockhash = await connection.getLatestBlockhash();
         transaction.feePayer = payer.publicKey;
-        transaction.recentBlockhash = blockHash.blockhash;
+        transaction.recentBlockhash = blockhash.blockhash;
         const signed = await payer.signTransaction(transaction);
 
         const signature = await connection.sendRawTransaction(
           signed.serialize()
         );
 
-        await connection.confirmTransaction(signature);
+        await connection.confirmTransaction({
+          signature,
+          blockhash: blockhash.blockhash,
+          lastValidBlockHeight: blockhash.lastValidBlockHeight,
+        });
       } catch (error) {
         throw error;
       }
